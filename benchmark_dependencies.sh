@@ -66,9 +66,9 @@ fi
 bash inkscape_dependencies.sh --full
 
 
-espeak "Downloading git from kernel dot org."
 git_file_name="git-2.47.1"
 if [ ! -e $git_file_name.tar.xz ]; then
+  espeak "Downloading git from kernel dot org."
   wget https://www.kernel.org/pub/software/scm/git/$git_file_name.tar.xz
 fi
 if [ ! -e $git_file_name ]; then
