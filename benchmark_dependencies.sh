@@ -85,10 +85,10 @@ cd ..
 
 mkdir git
 
-espeak "Downloading Debian Shell Scripts repo"
-cd git
-git clone https://github.com/bherdm/debian-shell-scripts.git
-cd ..
+# espeak "Downloading Debian Shell Scripts repo"
+# cd git
+# git clone https://github.com/bherdm/debian-shell-scripts.git
+# cd ..
 
 espeak "Downloading and installing GitHub C L I"
 (type -p wget >/dev/null || (sudo apt update && sudo apt-get install wget -y)) \
@@ -138,8 +138,8 @@ espeak "Downloading and installing GitHub C L I"
 # cd ..
 # cd ..
 
-espeak "Downloading and installing V S Code"
-sudo snap install --classic code
+# espeak "Downloading and installing V S Code"
+# sudo snap install --classic code
 
 espeak "Cloning the four point three branch of the [[gV]]dough engine."
 cd git
