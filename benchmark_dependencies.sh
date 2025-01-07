@@ -66,7 +66,7 @@ fi
 bash inkscape_dependencies.sh --full
 
 
-espeak "Downloading git from kernel dot org." &
+espeak "Downloading git from kernel dot org."
 git_file_name="git-2.47.1"
 if [ ! -e $git_file_name.tar.xz ]; then
   wget https://www.kernel.org/pub/software/scm/git/$git_file_name.tar.xz
@@ -206,9 +206,7 @@ echo "Script started at: $(date -d @$start_time)"
 echo "Script ended at: $(date -d @$end_time)"
 echo "Elapsed time: $elapsed_time seconds"
 
-espeak "Hello Debian: Complete!" &
-
-echo "Hello Debian v9"
+espeak "Dependencies acquired. Ready for benchmarking." &
 
 # Wait
 read -p "Press Enter to exit..."
