@@ -86,7 +86,9 @@ cd ..
 mkdir git
 
 espeak "Downloading Debian Shell Scripts repo"
+cd git
 git clone https://github.com/bherdm/debian-shell-scripts.git
+cd ..
 
 espeak "Downloading and installing GitHub C L I"
 (type -p wget >/dev/null || (sudo apt update && sudo apt-get install wget -y)) \
