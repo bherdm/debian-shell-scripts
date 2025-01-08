@@ -3,6 +3,9 @@
 sudo -S sh -c 'echo "Defaults timestamp_timeout=-1" >> /etc/sudoers.d/timeout'
 echo "Hello Debian!"
 
+
+sudo apt-get update -y
+sudo apt upgrade -y
 sudo apt-get install -y \
   git-all \
   espeak
@@ -38,9 +41,19 @@ sudo snap install --classic code
 
 mkdir ~/git
 
-#espeak "Downloading Debian Shell Scripts repo"
+#GitHub CLI
+espeak "Downloading and installing GitHub C L I"
+(type -p wget >/dev/null || (sudo apt update && sudo apt-get install wget -y)) \
+	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
+        && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+        && cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+	&& sudo apt update \
+	&& sudo apt install gh -y
+
+#bherdm/Debian-Shell-Scripts
 cd ~/git
 git clone https://github.com/bherdm/debian-shell-scripts.git
-mkdir ~/git/debian-shell-scripts/benchmark_repos/
-xdg-open .
-cd ..
+#xdg-open .
+bash ~/git/debian-shell-scripts/benchmark_dependencies.sh

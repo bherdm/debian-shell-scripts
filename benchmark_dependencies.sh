@@ -1,31 +1,20 @@
 #! /usr/bin/bash
-#chmod u+x hello_debian.sh
-sudo -S sh -c 'echo "Defaults timestamp_timeout=-1" >> /etc/sudoers.d/timeout'
-echo "Hello Debian!"
+mkdir ~/git/debian-shell-scripts/benchmark_repos/
+cd ~/git/debian-shell-scripts/benchmark_repos/
 
-# Get start time
-start_time=$(date +%s)
-echo "Starting script at: $(date -d @$start_time)"
+#git
+git_file_name="git-2.47.1"
+if [ ! -e $git_file_name.tar.xz ]; then
+  espeak "Downloading git from kernel dot org."
+  wget https://www.kernel.org/pub/software/scm/git/$git_file_name.tar.xz
+fi
+if [ ! -e $git_file_name ]; then
+  tar -xf "$git_file_name.tar.xz"
+fi
 
-
-sudo apt-get update -y
-sudo apt upgrade -y
-
+#GODOT 4.3
+sudo apt-get update
 sudo apt-get install -y \
-  espeak
-
-espeak "Voice systems are online. Hello Debian. Hello world. Installing benchmark dependencies:" &
-sudo apt-get install -y \
-  dh-autoreconf \
-  libcurl4-gnutls-dev \
-  libexpat1-dev \
-  gettext \
-  libz-dev \
-  libssl-dev \
-  asciidoc \
-  xmlto \
-  docbook2x \
-  install-info \
   build-essential \
   scons \
   pkg-config \
@@ -40,65 +29,116 @@ sudo apt-get install -y \
   libxi-dev \
   libxrandr-dev \
   libwayland-dev \
-  libembree-dev \
-  libenet-dev \
-  libfreetype-dev \
-  libpng-dev \
-  zlib1g-dev \
-  libgraphite2-dev \
-  libharfbuzz-dev \
-  libogg-dev \
-  libtheora-dev \
-  libvorbis-dev \
-  libwebp-dev \
-  libmbedtls-dev \
-  libminiupnpc-dev \
-  libpcre2-dev \
-  libzstd-dev \
-  libsquish-dev \
-  libicu-dev \
-  firefox
+  mingw-w64
+espeak "Cloning the four point three branch of the [[gV]]dough engine."
+if [ ! -e "godot" ]; then
+  git clone --depth 1 --branch 4.3 https://github.com/godotengine/godot.git
+fi
 
+#Godot-for-OUYA
+sudo apt-get install -y \
+  build-essential \
+  scons \
+  pkg-config \
+  libx11-dev \
+  libxcursor-dev \
+  libxinerama-dev \
+  libgl1-mesa-dev \
+  libglu-dev \
+  libasound2-dev \
+  libpulse-dev \
+  libfreetype6-dev \
+  libssl-dev \
+  libudev-dev \
+  libxrandr-dev
+espeak "Cloning the main branch of [[gV]]dough for OUYA."
+if [ ! -e "godot" ]; then
+  git clone --depth 1 --branch ouya https://github.com/bherdm/godot-for-ouya.git
+fi
+
+#Inkscape
 inkscape_file_name="inkscape_dependencies.sh"
 if [ ! -e $inkscape_file_name ]; then
   wget -v https://gitlab.com/inkscape/inkscape-ci-docker/-/raw/master/install_dependencies.sh -O $inkscape_file_name
 fi
 bash inkscape_dependencies.sh --full
+rm $inkscape_file_name
 
-
-git_file_name="git-2.47.1"
-if [ ! -e $git_file_name.tar.xz ]; then
-  espeak "Downloading git from kernel dot org."
-  wget https://www.kernel.org/pub/software/scm/git/$git_file_name.tar.xz
-fi
-if [ ! -e $git_file_name ]; then
-  tar -xf "$git_file_name.tar.xz"
+espeak "Cloning the one point four branch of Inkscape."
+if [ ! -e "inkscape" ]; then
+  git clone --recurse-submodules --depth 1 --branch INKSCAPE_1_4 https://gitlab.com/inkscape/inkscape.git
 fi
 
-espeak "Compiling git from source."
-cd "git-2.47.1"
-make configure
-./configure --prefix=/usr
-make all doc info
-sudo make install install-doc install-html install-info
-cd ..
+# Finished
+espeak "Dependencies acquired. Ready for benchmarking." &
+# Wait
+#read -p "Press Enter to exit..."
 
-mkdir git
+
+
+# sudo apt-get install -y \
+#   dh-autoreconf \
+#   libcurl4-gnutls-dev \
+#   libexpat1-dev \
+#   gettext \
+#   libz-dev \
+#   libssl-dev \
+#   asciidoc \
+#   xmlto \
+#   docbook2x \
+#   install-info \
+#   build-essential \
+#   scons \
+#   pkg-config \
+#   libx11-dev \
+#   libxcursor-dev \
+#   libxinerama-dev \
+#   libgl1-mesa-dev \
+#   libglu1-mesa-dev \
+#   libasound2-dev \
+#   libpulse-dev \
+#   libudev-dev \
+#   libxi-dev \
+#   libxrandr-dev \
+#   libwayland-dev \
+#   libembree-dev \
+#   libenet-dev \
+#   libfreetype-dev \
+#   libpng-dev \
+#   zlib1g-dev \
+#   libgraphite2-dev \
+#   libharfbuzz-dev \
+#   libogg-dev \
+#   libtheora-dev \
+#   libvorbis-dev \
+#   libwebp-dev \
+#   libmbedtls-dev \
+#   libminiupnpc-dev \
+#   libpcre2-dev \
+#   libzstd-dev \
+#   libsquish-dev \
+#   libicu-dev \
+#   firefox
+
+
+
+
+# espeak "Compiling git from source."
+# cd "git-2.47.1"
+# make configure
+# ./configure --prefix=/usr
+# make all doc info
+# sudo make install install-doc install-html install-info
+# cd ..
+
+# mkdir git
 
 # espeak "Downloading Debian Shell Scripts repo"
 # cd git
 # git clone https://github.com/bherdm/debian-shell-scripts.git
 # cd ..
 
-espeak "Downloading and installing GitHub C L I"
-(type -p wget >/dev/null || (sudo apt update && sudo apt-get install wget -y)) \
-	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
-        && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-        && cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
-	&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
-	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-	&& sudo apt update \
-	&& sudo apt install gh -y
+
 
 
 # espeak "Downloading Blender"
@@ -141,13 +181,6 @@ espeak "Downloading and installing GitHub C L I"
 # espeak "Downloading and installing V S Code"
 # sudo snap install --classic code
 
-espeak "Cloning the four point three branch of the [[gV]]dough engine."
-cd git
-if [ ! -e "godot" ]; then
-  git clone --depth 1 --branch 4.3 https://github.com/godotengine/godot.git
-fi
-cd ..
-
 
 # # Get system memory total
 # Kilobytes_ram=$(grep MemTotal /proc/meminfo | awk '{print $2}')
@@ -171,11 +204,7 @@ cd ..
 # cd ..
 # cd ..
 
-espeak "Downloading Inkscape"
-cd git
-if [ ! -e "inkscape" ]; then
-  git clone --recurse-submodules --depth 1 --branch INKSCAPE_1_4 https://gitlab.com/inkscape/inkscape.git
-fi
+
 #cd inkscape
 #mkdir build
 #cd build
@@ -187,25 +216,20 @@ fi
 #cd ..
 
 
-echo "$Megabytes_ram MB of RAM"
-echo "$cpu_cores logical cores"
+# echo "$Megabytes_ram MB of RAM"
+# echo "$cpu_cores logical cores"
 
-python3 -m webbrowser -t  https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/ &
+# python3 -m webbrowser -t  https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/ &
 
-git --version
+# git --version
 
-# Get end time
-end_time=$(date +%s)
+# # Get end time
+# end_time=$(date +%s)
 
-# Calculate elapsed time
-elapsed_time=$((end_time - start_time))
+# # Calculate elapsed time
+# elapsed_time=$((end_time - start_time))
 
-# Log the times
-echo "Script started at: $(date -d @$start_time)"
-echo "Script ended at: $(date -d @$end_time)"
-echo "Elapsed time: $elapsed_time seconds"
-
-espeak "Dependencies acquired. Ready for benchmarking." &
-
-# Wait
-read -p "Press Enter to exit..."
+# # Log the times
+# echo "Script started at: $(date -d @$start_time)"
+# echo "Script ended at: $(date -d @$end_time)"
+# echo "Elapsed time: $elapsed_time seconds"

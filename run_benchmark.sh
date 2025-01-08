@@ -36,7 +36,7 @@ godot_start_time=$(date +%s) &
 echo "Starting script at: $(date -d @$godot_start_time)"
 
 cd godot
-scons platform=linuxbsd -j$halfcores
+scons platform=linuxbsd optimize=debug -j$halfcores
 cd ..
 # Get end time
 godot_end_time=$(date +%s)
