@@ -1,10 +1,7 @@
 #! /usr/bin/bash
-#chmod u+x hello_debian.sh
 
-cd ..
-cd ..
 # Iterate through each item in the base directory
-for dir in git/*; do
+for dir in ~/git/debian-shell-scripts/benchmark_repos/*; do
   echo $dir
   # Check if the item is a directory
   if [ -d "$dir" ]; then

@@ -52,6 +52,14 @@ espeak "Downloading and installing GitHub C L I"
 	&& sudo apt update \
 	&& sudo apt install gh -y
 
+#GIMP
+sudo apt-get install -y flatpak
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install -y https://flathub.org/repo/appstream/org.gimp.GIMP.flatpakref 
+
+#Blender
+
+
 #bherdm/Debian-Shell-Scripts
 cd ~/git
 git clone https://github.com/bherdm/debian-shell-scripts.git
