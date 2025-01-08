@@ -52,7 +52,7 @@ sudo apt-get install -y \
   libudev-dev \
   libxrandr-dev
 espeak "Cloning the main branch of [[gV]]dough for OUYA."
-if [ ! -e "godot" ]; then
+if [ ! -e "godot-for-ouya" ]; then
   git clone --depth 1 --branch ouya https://github.com/bherdm/godot-for-ouya.git
 fi
 

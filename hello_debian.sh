@@ -37,9 +37,8 @@ sudo apt-get install -y python3
 python3 -m webbrowser -t  https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/ &
 
 #VISUAL STUDIO CODE
+sudo apt-get install -y snapd
 sudo snap install --classic code
-
-mkdir ~/git
 
 #GitHub CLI
 espeak "Downloading and installing GitHub C L I"
@@ -65,3 +64,5 @@ cd ~/git
 git clone https://github.com/bherdm/debian-shell-scripts.git
 #xdg-open .
 bash ~/git/debian-shell-scripts/benchmark_dependencies.sh
+# Wait
+read -p "Press Enter to exit..."
