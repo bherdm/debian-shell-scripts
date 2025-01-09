@@ -58,7 +58,7 @@ flatpak install -y https://flathub.org/repo/appstream/org.gimp.GIMP.flatpakref
 
 #Blender
 
-
+mkdir ~/git
 #bherdm/Debian-Shell-Scripts
 cd ~/git
 git clone https://github.com/bherdm/debian-shell-scripts.git
