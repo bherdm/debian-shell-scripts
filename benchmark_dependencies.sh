@@ -57,6 +57,7 @@ if [ ! -e "godot-for-ouya" ]; then
 fi
 
 #Inkscape
+sudo add-apt-repository 'deb http://archive.ubuntu.com/ubuntu lunar main'
 inkscape_file_name="inkscape_dependencies.sh"
 if [ ! -e $inkscape_file_name ]; then
   wget -v https://gitlab.com/inkscape/inkscape-ci-docker/-/raw/master/install_dependencies.sh -O $inkscape_file_name

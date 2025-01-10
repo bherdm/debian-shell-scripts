@@ -8,7 +8,8 @@ sudo apt-get update -y
 sudo apt upgrade -y
 sudo apt-get install -y \
   git-all \
-  espeak
+  espeak \
+  vlc
 
 #FIREFOX
 #Create a directory to store APT repository keys if it doesn't exist:
@@ -39,6 +40,10 @@ python3 -m webbrowser -t  https://addons.mozilla.org/en-US/firefox/addon/ublock-
 #VISUAL STUDIO CODE
 sudo apt-get install -y snapd
 sudo snap install --classic code
+
+#VISUAL STUDIO CODE
+sudo apt-get install -y snapd
+sudo snap install plex-desktop
 
 #GitHub CLI
 espeak "Downloading and installing GitHub C L I"
