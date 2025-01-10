@@ -59,6 +59,24 @@ flatpak install -y https://flathub.org/repo/appstream/org.gimp.GIMP.flatpakref
 #Blender
 
 #MAKEMKV
+sudo apt-get install -y \
+  build-essential \
+  pkg-config \
+  libc6-dev \
+  libssl-dev \
+  libexpat1-dev \
+  libavcodec-dev \
+  libgl1-mesa-dev \
+  qtbase5-dev \
+  zlib1g-dev
+rm -rf ~/makemkv
+mkdir ~/makemkv
+cd ~/makemkv
+wget -O makemkv-bin-1.17.8.tar.gz https://www.makemkv.com/download/makemkv-bin-1.17.8.tar.gz
+tar -xvf makemkv-bin-1.17.8.tar.gz
+wget -O makemkv-oss-1.17.8.tar.gz https://www.makemkv.com/download/makemkv-oss-1.17.8.tar.gz
+tar -xvf makemkv-oss-1.17.8.tar.gz
+  #ffmpeg
 sudo apt-get update -qq && sudo apt-get -y install \
   autoconf \
   automake \
@@ -84,8 +102,13 @@ sudo apt-get update -qq && sudo apt-get -y install \
   wget \
   yasm \
   zlib1g-dev
-#nasm
-cd ~/ffmpeg_sources && \
+mkdir ~/makemkv/ffmpeg_sources
+cd ~/makemkv/ffmpeg_sources && \
+wget -O ffmpeg-7.1.tar.bz2 https://ffmpeg.org//releases/ffmpeg-7.1.tar.bz2 && \
+tar xjvf ffmpeg-7.1.tar.bz2 && \
+cd ffmpeg && \
+    #nasm
+cd ~/makemkv/ffmpeg_sources && \
 wget https://www.nasm.us/pub/nasm/releasebuilds/2.16.01/nasm-2.16.01.tar.bz2 && \
 tar xjvf nasm-2.16.01.tar.bz2 && \
 cd nasm-2.16.01 && \
@@ -93,48 +116,26 @@ cd nasm-2.16.01 && \
 PATH="$HOME/bin:$PATH" ./configure --prefix="$HOME/ffmpeg_build" --bindir="$HOME/bin" && \
 make && \
 make install
-#libfdk_aac
-cd ~/ffmpeg_sources && \
+    #libfdk_aac
+cd ~/makemkv/ffmpeg_sources && \
 git -C fdk-aac pull 2> /dev/null || git clone --depth 1 https://github.com/mstorsjo/fdk-aac && \
 cd fdk-aac && \
 autoreconf -fiv && \
 ./configure --prefix="$HOME/ffmpeg_build" --disable-shared && \
 make && \
 make install
-# #ffmpeg
-# rm -r ~/ffmpeg_sources
-# mkdir ~/ffmpeg_sources
-# cd ~/ffmpeg_sources && \
-# wget -O ffmpeg-7.1.tar.bz2 https://ffmpeg.org//releases/ffmpeg-7.1.tar.bz2 && \
-# tar xjvf ffmpeg-7.1.tar.bz2 && \
-# cd ffmpeg && \
-# PATH="$HOME/bin:$PATH" PKG_CONFIG_PATH="$HOME/ffmpeg_build/lib/pkgconfig" ./configure \
-#   --prefix="$HOME/ffmpeg_build" \
-#   --pkg-config-flags="--static" \
-#   --extra-cflags="-I$HOME/ffmpeg_build/include" \
-#   --extra-ldflags="-L$HOME/ffmpeg_build/lib" \
-#   --extra-libs="-lpthread -lm" \
-#   --ld="g++" \
-#   --bindir="$HOME/bin" \
-#   --enable-gpl \
-#   --enable-gnutls \
-#   --enable-libaom \
-#   --enable-libass \
-#   --enable-libfdk-aac \
-#   --enable-libfreetype \
-#   --enable-libmp3lame \
-#   --enable-libopus \
-#   --enable-libsvtav1 \
-#   --enable-libdav1d \
-#   --enable-libvorbis \
-#   --enable-libvpx \
-#   --enable-libx264 \
-#   --enable-libx265 \
-#   --enable-nonfree && \
-# PATH="$HOME/bin:$PATH" make && \
-# make install && \
-# hash -r
-
+    #ffmpeg
+cd ~/makemkv/ffmpeg_sources/ffmpeg
+./configure --prefix=/tmp/ffmpeg --enable-static --disable-shared --enable-pic --enable-libfdk-aac
+make install
+# Make MKV
+cd ~/makemkv/makemkv-oss-1.17.8
+./configure
+make
+sudo make install
+cd ~/makemkv/makemkv-bin-1.17.8
+make
+sudo make install
 
 
 mkdir ~/git
