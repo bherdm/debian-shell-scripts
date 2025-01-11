@@ -143,13 +143,15 @@ sudo make install
 cd ~/makemkv/makemkv-bin-1.17.8
 make
 sudo make install
-
+rm -rf ~/makemkv
+rm -rf ~/ffmpeg
 
 mkdir ~/git
 #bherdm/Debian-Shell-Scripts
 cd ~/git
 git clone https://github.com/bherdm/debian-shell-scripts.git
 #xdg-open .
+bash ~/git/debian-shell-scripts/godot-for-ouya.sh
 bash ~/git/debian-shell-scripts/benchmark_dependencies.sh
 # Wait
-read -p "Press Enter to exit..."
+read -p "Finished! Press Enter to exit..."

@@ -35,27 +35,6 @@ if [ ! -e "godot" ]; then
   git clone --depth 1 --branch 4.3 https://github.com/godotengine/godot.git
 fi
 
-#Godot-for-OUYA
-sudo apt-get install -y \
-  build-essential \
-  scons \
-  pkg-config \
-  libx11-dev \
-  libxcursor-dev \
-  libxinerama-dev \
-  libgl1-mesa-dev \
-  libglu-dev \
-  libasound2-dev \
-  libpulse-dev \
-  libfreetype6-dev \
-  libssl-dev \
-  libudev-dev \
-  libxrandr-dev
-espeak "Cloning the main branch of [[gV]]dough for OUYA."
-if [ ! -e "godot-for-ouya" ]; then
-  git clone --depth 1 --branch ouya https://github.com/bherdm/godot-for-ouya.git
-fi
-
 #Inkscape
 sudo add-apt-repository 'deb http://archive.ubuntu.com/ubuntu lunar main'
 inkscape_file_name="inkscape_dependencies.sh"
