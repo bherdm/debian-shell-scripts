@@ -38,10 +38,12 @@ sudo apt-get install -y python3
 python3 -m webbrowser -t  https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/ &
 
 #VISUAL STUDIO CODE
+sudo rm /etc/apt/preferences.d/nosnap.pref #Needed for Mint
 sudo apt-get install -y snapd
 sudo snap install --classic code
 
-#VISUAL STUDIO CODE
+#PLEX
+sudo rm /etc/apt/preferences.d/nosnap.pref #Needed for Mint
 sudo apt-get install -y snapd
 sudo snap install plex-desktop
 
