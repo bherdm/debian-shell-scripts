@@ -26,6 +26,7 @@ if [ ! -e "godot-for-ouya" ]; then
   espeak "Cloning [[gV]]dough for OUYA."
   git clone https://github.com/bherdm/godot-for-ouya.git
 fi
+cd git checkout remotes/origin/debian
 
 # Get logic core count
 cpu_cores=$(nproc)
