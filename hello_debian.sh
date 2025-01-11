@@ -151,7 +151,7 @@ mkdir ~/git
 cd ~/git
 git clone https://github.com/bherdm/debian-shell-scripts.git
 #xdg-open .
-bash ~/git/debian-shell-scripts/godot-for-ouya.sh
+bash ~/git/debian-shell-scripts/godot-for-ouya-setup.sh
 bash ~/git/debian-shell-scripts/benchmark_dependencies.sh
 # Wait
 read -p "Finished! Press Enter to exit..."
